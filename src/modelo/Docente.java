@@ -5,7 +5,7 @@ public class Docente extends Usuario{
     final static int MAX_LIBROS = 5;
     final static int MAX_DIAS = 15;
 
-    public Docente(String nombreCompleto, String dni, int añoNacimiento) {
+    public Docente(String nombreCompleto, String dni, String añoNacimiento) {
         super(nombreCompleto, dni, añoNacimiento);
     }
 
