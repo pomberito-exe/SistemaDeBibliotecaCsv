@@ -4,6 +4,7 @@ import modelo.Libro;
 import modelo.Prestamo;
 import modelo.Usuario;
 import persistencia.*;
+import vista.Menu;
 
 import java.nio.file.Path;
 
@@ -18,10 +19,12 @@ public class Main {
         repositorioUsuarios.mostrarLista();
         repositorioPrestamo.mostrarLista();
 
+        while(true){
+            Menu.mostrarMenu();
+        }
+
+
 
     }
 
-    public static int mostrarMenu(){
-
-    }
 }

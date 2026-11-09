@@ -3,9 +3,10 @@ package persistencia;
 import modelo.Libro;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LibroRepositorio extends RepositorioCsv<Libro>{
-
 
     public LibroRepositorio(Path ruta) {
         super(ruta);
@@ -23,4 +24,17 @@ public class LibroRepositorio extends RepositorioCsv<Libro>{
                 Integer.parseInt(campos[3]),
                 Boolean.parseBoolean(campos[4]));
     }
+
+    public List<Libro> obtenerLibrosDisponibles(){
+
+        List<Libro> listaLibrosDisponibles = new ArrayList<>();
+
+        for(Libro libro : elementos){
+            if(libro.isDisponible()){
+                listaLibrosDisponibles.add(libro);
+            }
+        }
+        return listaLibrosDisponibles;
+    }
+
 }

@@ -18,7 +18,7 @@ public abstract class RepositorioCsv <T extends Identificable> implements Reposi
     private static final String SEPARADOR = ";";
     private final Path ruta;
 
-    private final List<T> elementos = new ArrayList<>();
+    protected final List<T> elementos = new ArrayList<>();
 
     public RepositorioCsv(Path ruta) {
         this.ruta = ruta;
