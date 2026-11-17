@@ -9,16 +9,15 @@ import persistencia.RepositorioCsv;
 import persistencia.UsuarioRepositorio;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 public class Biblioteca {
-
-
 
     private final Path rutaLibro = Path.of("C:/Juan/personal//SistemaBibliotecaCsv/Datos/libros.csv");
     private final Path rutaUsuario = Path.of("C:/Juan/personal//SistemaBibliotecaCsv/Datos/usuarios.csv");
     private final Path rutaPrestamo = Path.of("C:/Juan/personal//SistemaBibliotecaCsv/Datos/prestamos.csv");
 
-    RepositorioCsv repositorioLibro;
+    LibroRepositorio repositorioLibro;
     RepositorioCsv repositorioUsuario;
     RepositorioCsv repositorioPrestamo;
 
@@ -45,9 +44,34 @@ public class Biblioteca {
 
     }
 
-    public void mostrarLibrosDisponibles(){
-        repositorioLibro.
+    public void cargarElemento(Object elemento){
+        if(elemento == null){
+            throw new IllegalArgumentException("El elemento a guardar no puede estar vacío");
+        }
+        if(elemento instanceof Libro){
+            repositorioLibro.guardar((Libro)elemento);
+        } else if (elemento instanceof Usuario) {
+            repositorioUsuario.guardar((Usuario)elemento);
+        } else if (elemento instanceof Prestamo){
+            repositorioPrestamo.guardar((Prestamo)elemento);
+        } else {
+            throw new IllegalArgumentException("Elemento inválido: " + elemento.getClass());
+        }
+
+
     }
+
+    public void mostrarLibrosDisponibles(){
+
+        for(Libro libro : repositorioLibro.obtenerLibrosDisponibles()){
+            System.out.println(libro);
+        }
+    }
+
+
+
+
+
 
 
 }

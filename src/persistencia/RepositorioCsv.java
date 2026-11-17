@@ -36,7 +36,7 @@ public abstract class RepositorioCsv <T extends Identificable> implements Reposi
 
     @Override
     public void guardar(T elemento) {
-
+        elementos.add(elemento);
     }
 
     @Override
@@ -74,6 +74,8 @@ public abstract class RepositorioCsv <T extends Identificable> implements Reposi
 
     }
 
+    protected abstract T parsear(String[] campos);
+
     private void procesarLinea(String linea, int numeroLinea) {
         try {
             T elemento = parsear(linea.split(RepositorioCsv.SEPARADOR, -1));
@@ -83,7 +85,6 @@ public abstract class RepositorioCsv <T extends Identificable> implements Reposi
         }
     }
 
-    protected abstract T parsear(String[] campos);
 
     private void cerrar(Closeable recurso) {
         if(recurso != null){

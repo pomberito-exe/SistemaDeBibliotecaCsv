@@ -1,7 +1,9 @@
 package vista;
 
+import modelo.Libro;
 import servicio.Biblioteca;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Menu {
@@ -23,7 +25,7 @@ public class Menu {
         int cantidadOpcionMenu2 = 0;
         String menu2Elegido = "";
 
-        switch(elegirOpcion(1, CANT_MENU_1)){
+        switch(solicitarInt(1, CANT_MENU_1)){
 
             case 1:
                 System.out.println("MENU LIBROS");
@@ -53,13 +55,14 @@ public class Menu {
                 break;
         }
 
-        int opcionMenu2 =  elegirOpcion(1, cantidadOpcionMenu2);
+        int opcionMenu2 =  solicitarInt(1, cantidadOpcionMenu2);
 
         switch (menu2Elegido){
             case "LIBROS":
                 switch (opcionMenu2){
                     case 1:
                         System.out.println("Creando libro...");
+                        biblioteca.cargarElemento(solicitarLibro());
                         break;
                     case 2:
                         System.out.println("Listando libros...");
@@ -67,6 +70,7 @@ public class Menu {
                         break;
                     case 3:
                         System.out.println("Listando libros disponibles...");
+                        biblioteca.mostrarLibrosDisponibles();
                         break;
                 }
                 break;
@@ -93,7 +97,58 @@ public class Menu {
 
     }
 
-    public static int elegirOpcion(int inicio, int fin){
+    private static Libro solicitarLibro() {
+        String titulo = inputTexto("Titulo: ");
+        String autor = inputTexto("Autor: ");
+        int anio = solicitarInt(1000, LocalDateTime.now().getYear(), "Anio: ");
+        return null;
+    }
+
+
+    private static String inputTexto(String s) {
+
+        sc.nextLine();
+        String input;
+
+        boolean respuestaCorrecta = true;
+
+        do {
+
+            if(respuestaCorrecta == false){
+                System.out.println("Datos de texto no pueden ser menores a 2 ni estar en blanco");
+            }
+
+            System.out.println(s);
+            input = sc.nextLine();
+
+            respuestaCorrecta = !(input.isBlank()) || !(input.length() < 2);
+
+
+        } while(respuestaCorrecta);
+
+        return input;
+
+    }
+
+
+    public static int solicitarInt(int inicio, int fin){
+        while(!sc.hasNextInt()){
+            sc.next();
+            System.out.println("Solo se admiten numeros");
+        }
+        int opcion = sc.nextInt();
+        while(opcion < inicio || opcion > fin){
+            System.out.println("Opcion fuera de rango");
+            opcion = sc.nextInt();
+        }
+        return opcion;
+    }
+
+
+    public static int solicitarInt(int inicio, int fin, String mensaje){
+
+        System.out.println(mensaje);
+
         while(!sc.hasNextInt()){
             sc.next();
             System.out.println("Solo se admiten numeros");
